@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
+	Schema = mongoose.Schema
 	request = require('request')
 
 var EstateSchema = new mongoose.Schema({

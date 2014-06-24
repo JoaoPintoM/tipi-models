@@ -19,5 +19,5 @@ EstateDescriptionSchema.pre('save', function (next) {
 })
 
 var EstateDescription = mongoose.model('EstateDescription', EstateDescriptionSchema)
-
+console.log('EstateDescription Schema created')
 module.exports = EstateDescription
