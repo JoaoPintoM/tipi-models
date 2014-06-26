@@ -71,5 +71,4 @@ EstateSchema.pre('save', function (next) {
 })
 var Estate = mongoose.model('Estate', EstateSchema);
 
-
 module.exports = Estate
