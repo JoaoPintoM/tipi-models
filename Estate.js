@@ -49,12 +49,11 @@ module.exports = function(mongoose, request) {
 			}
 		}
 	})
-	EstateSchema.post('init', function(next) {
+	EstateSchema.post('init', function() {
 		this._original = this.toObject();
-		next()
 	});
 	EstateSchema.pre('save', function (next) {
-		if (this.price && this._original.price != this.price) {
+		if (this._original && this.price && this._original.price != this.price) {
 			this.old_price = this._original.price
 			this.date_price_changed = Date.now()
 		}
@@ -70,7 +69,7 @@ module.exports = function(mongoose, request) {
 		console.log('resolving address:' + this.address)
 		if (!this.address) return next()
 		//if (this.lat) return next()
-		if (this._original.address != this.address){
+		if (this._original && this._original.address != this.address){
 			request.get("http://maps.googleapis.com/maps/api/geocode/json?address="+this.address+"&components=country:BE|postal_code:"+this.zip+"&sensor=false", function(e, resp, body){
 				var data = JSON.parse(body)
 				console.log(data)
