@@ -25,6 +25,7 @@ module.exports = function(mongoose, request) {
 		date_deleted: {type: Date, 'default': null},
 		date_last_import: {type: Date, 'default': null},
 		date_sold: {type: Date, 'default': null},
+		date_price_changed: {type: Date, 'default': null},
 		provider: String,
 		provider_ref: String,
 		provider_url: String,
@@ -48,6 +49,17 @@ module.exports = function(mongoose, request) {
 			}
 		}
 	})
+	EstateSchema.post('init', function(next) {
+		this._original = this.toObject();
+		next()
+	});
+	EstateSchema.pre('save', function (next) {
+		if (this.price && this._original.price != this.price) {
+			this.old_price = this._original.price
+			this.date_price_changed = Date.now()
+		}
+		next()
+	})
 	EstateSchema.pre('save', function (next) {
 		if (this.price) this.sort_value = this.price
 		next()
@@ -58,17 +70,21 @@ module.exports = function(mongoose, request) {
 		console.log('resolving address:' + this.address)
 		if (!this.address) return next()
 		//if (this.lat) return next()
-		request.get("http://maps.googleapis.com/maps/api/geocode/json?address="+this.address+"&components=country:BE|postal_code:"+this.zip+"&sensor=false", function(e, resp, body){
-			var data = JSON.parse(body)
-			console.log(data)
-			if (data.results[0]){
-				if (data.results[0].partial_match) that.partial_address = true
-				that.lat = data.results[0].geometry.location.lat
-				that.lng = data.results[0].geometry.location.lng
-				that.loc = [that.lat, that.lng]
-			}
-			next()
-		})
+		if (this._original.address != this.address){
+			request.get("http://maps.googleapis.com/maps/api/geocode/json?address="+this.address+"&components=country:BE|postal_code:"+this.zip+"&sensor=false", function(e, resp, body){
+				var data = JSON.parse(body)
+				console.log(data)
+				if (data.results[0]){
+					if (data.results[0].partial_match) that.partial_address = true
+					that.lat = data.results[0].geometry.location.lat
+					that.lng = data.results[0].geometry.location.lng
+					that.loc = [that.lat, that.lng]
+				}
+				next()
+			})	
+		}
+		else next()
+		
 	})
 	var Estate = mongoose.model('Estate', EstateSchema);
 
