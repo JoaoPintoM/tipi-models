@@ -66,10 +66,14 @@ module.exports = function(mongoose, request) {
 	EstateSchema.pre('save', function (next) {
 		// geocode the address
 		var that = this
-		console.log('resolving address:' + this.address)
-		if (!this.address) return next()
-		//if (this.lat) return next()
-		if (this._original && this._original.address != this.address){
+		var geoCode = true
+		if (!this.address) geoCode = false
+		else if (this.lat && this.lng){
+			if (this._original && this._original.lat == this.lat && this._original.lng == this.lng) geoCode = false
+		}
+		
+		if (geoCode){
+			console.log('resolving address:' + this.address)
 			request.get("http://maps.googleapis.com/maps/api/geocode/json?address="+this.address+"&components=country:BE|postal_code:"+this.zip+"&sensor=false", function(e, resp, body){
 				var data = JSON.parse(body)
 				console.log(data)
@@ -82,7 +86,10 @@ module.exports = function(mongoose, request) {
 				next()
 			})	
 		}
-		else next()
+		else {
+			console.log('address already resolved')
+			next()	
+		}
 		
 	})
 	var Estate = mongoose.model('Estate', EstateSchema);
