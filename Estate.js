@@ -68,9 +68,8 @@ module.exports = function(mongoose, request) {
 		var that = this
 		var geoCode = true
 		if (!this.address) geoCode = false
-		else if (this.lat && this.lng){
-			if (this._original && this._original.lat == this.lat && this._original.lng == this.lng) geoCode = false
-		}
+		else if (this.lat && this.lng) geoCode = false
+		if (this._original && this._original.address != this.address) geoCode = true
 		
 		if (geoCode){
 			console.log('resolving address:' + this.address)
