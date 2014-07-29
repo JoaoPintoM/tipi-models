@@ -14,7 +14,7 @@ module.exports = function(mongoose, request) {
 		nb_rooms: {type:Number, 'default':0},
 		surface_area: Number,
 		nb_bathrooms: {type:Number, 'default':0},
-		land_surface: {type:Number, 'default':null},
+		land_surface: Number,
 		construction_year: String,
 		nb_faces: Number,
 		tags: [String],
