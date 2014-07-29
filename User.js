@@ -16,7 +16,8 @@ module.exports = function(mongoose) {
 			mode: {type: String, 'default': 'rent'},
 			category: {type: String, 'default': ''},
 			zip: String,
-			price_range: {type:Array, 'default':[]},
+			price_min: {type:Number, 'default':0},
+			price_max: {type:Number, 'default':null},
 			min_rooms: {type:Number, 'default':0}
 		}
 	})
