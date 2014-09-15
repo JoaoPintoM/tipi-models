@@ -17,6 +17,5 @@ module.exports = function(mongoose) {
 	})
 	
 	var EstateDescription = mongoose.model('EstateDescription', EstateDescriptionSchema)
-	//console.log('EstateDescription Schema created')
 	return EstateDescription
 }
