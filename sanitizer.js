@@ -44,7 +44,7 @@ exports.sanitize = function(html, whitelist){
 		tagMap[whitelist[t].tag] = whitelist[t]
 	}
 	
-	var reTag = /<([^>]*)>/gi, nextTagMatch, out = "", pos = 0, tagName, tagData, attribString, attribMatch, reAttrib, tagRE = /^(\/)?([a-zA-Z0-9]+)([^>]*)?$/ ;
+	var reTag = /<([^>]*)>/gi, nextTagMatch, openTags = [], index, out = "", pos = 0, tagName, tagData, attribString, attribMatch, reAttrib, tagRE = /^(\/)?([a-zA-Z0-9]+)([^>]*)?$/ ;
 	
 	while (nextTagMatch = reTag.exec(html)){
 		out += html.substring(pos, nextTagMatch.index)
@@ -54,8 +54,20 @@ exports.sanitize = function(html, whitelist){
 			tagName = tagMatch[2].toLowerCase()
 			if (tagMap[tagName]) { // tag is authorized
 				tagData = tagMap[tagName]
-				out += "<"
-				if (tagMatch[1] && tagMatch[1] == "/") out += "/"
+				if (tagMatch[1] && tagMatch[1] == "/") {
+					var index = openTags.indexOf(tagName)
+					if (index > -1) { // tag has matching opening tag
+						out += "</"
+						openTags.splice(index, 1)
+					}
+					else continue
+				}
+				else {
+					// opening tag
+					out += "<"
+					openTags.push(tagName)
+				}
+					
 				if (tagData.replacement) tagName = tagData.replacement
 				out += tagName
 				if (tagData.attribs && !tagMatch[1]) {
@@ -78,6 +90,11 @@ exports.sanitize = function(html, whitelist){
 		
 	}
 	if (pos < html.length) out += html.substr(pos, html.length-pos)
+	// close remaining open tags
+	for (var i=0; i < openTags.length; i++) {
+		if (tagMap[openTags[i]].replacement) out += "</" + tagMap[openTags[i]].replacement + ">"
+		else out += "</" + openTags[i] + ">"
+	}
 	
 	return out
 	
