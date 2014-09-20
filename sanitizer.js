@@ -60,7 +60,11 @@ exports.sanitize = function(html, whitelist){
 						out += "</"
 						openTags.splice(index, 1)
 					}
-					else continue
+					else {
+						// position cursor after closing tag
+						pos = nextTagMatch.index + nextTagMatch[0].length
+						continue
+					}
 				}
 				else {
 					// opening tag
