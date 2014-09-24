@@ -1,21 +1,25 @@
 
+
 module.exports = function(mongoose, request) {
 
 	var EstateSchema = new mongoose.Schema({
-		mode: {type: String, 'enum':['sale', 'rent']},
-		zip: {type: Number, min: 1000, max: 9999, 'default':''},
+		mode: {type: String, 'enum':['sale', 'rent'], index:true},
+		zip: {type: Number, min: 1000, max: 9999, 'default':'', index:true},
 		city: String,
+		city_fr: String,
+		city_nl: String,
+		city_en: String,
 		address: String,
 		partial_address: {type:Boolean, 'default':false},
-		category: String,
+		category: {type: String, 'enum':['house', 'appartment', 'business', 'garage', 'terrain'], index:true},
 		type: String,
-		price: Number,
+		price: {type: Number, index: true},
 		old_price: Number,
-		nb_rooms: {type:Number, 'default':0},
+		nb_rooms: {type:Number, 'default':0, index: true},
 		surface_area: Number,
 		nb_bathrooms: {type:Number, 'default':0},
 		land_surface: Number,
-		construction_year: String,
+		construction_year: {type: String},
 		nb_faces: Number,
 		tags: [String],
 		pictures: {type:[], 'default':[]},
@@ -39,6 +43,24 @@ module.exports = function(mongoose, request) {
 		  },
 		validation_status: {type: Number, min: 0, max: 4, 'default': 0} // 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid
 	})
+	
+	EstateSchema.pre('validate', function (next) {
+		var ziputils = require('./ziputils')
+		var resolved = ziputils.resolve(this.zip, this.city)
+		if (resolved.zip) {
+			this.zip = resolved.zip
+			this.city_fr = resolved.city.fr
+			this.city_nl = resolved.city.nl
+			this.city_en = resolved.city.en
+		}
+		next()
+	})
+	
+	EstateSchema.path('zip').validate(function(val){
+		var ziputils = require('./ziputils')
+		return ziputils.isZip(val)
+	}, 'InvalidZip');
+	
 	EstateSchema.post('validate', function (estate) {
 		if (estate.validation_status == 0){
 			if (!estate.zip || !estate.category || !estate.pictures.length){
