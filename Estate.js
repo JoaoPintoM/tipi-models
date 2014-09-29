@@ -1,4 +1,6 @@
-
+var escape_html = function(str){
+	if (str) return str.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
 
 module.exports = function(mongoose, request) {
 
@@ -53,6 +55,12 @@ module.exports = function(mongoose, request) {
 			this.city_nl = resolved.city.nl
 			this.city_en = resolved.city.en
 		}
+		// sanitize strings
+		this.city = escape_html(this.city)
+		this.address = escape_html(this.address)
+		this.type = escape_html(this.type)
+		this.construction_year = escape_html(this.construction_year)
+		
 		next()
 	})
 	

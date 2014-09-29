@@ -19,6 +19,8 @@ var defaultWhiteList = [
 	{tag: "u"},
 	{tag: "i"},
 	{tag: "em"},
+	{tag: "sup"},
+	{tag: "sub"},
 	{tag: "ul"},
 	{tag: "li"},
 	{tag: "ol"},
@@ -34,6 +36,7 @@ var defaultWhiteList = [
 	{tag: "tr"},
 	{tag: "td"}
 ]
+var reNoClose = /(input|br|hr)/i
 
 exports.sanitize = function(html, whitelist){
 	
@@ -96,8 +99,11 @@ exports.sanitize = function(html, whitelist){
 	if (pos < html.length) out += html.substr(pos, html.length-pos)
 	// close remaining open tags
 	for (var i=0; i < openTags.length; i++) {
-		if (tagMap[openTags[i]].replacement) out += "</" + tagMap[openTags[i]].replacement + ">"
-		else out += "</" + openTags[i] + ">"
+		if (! reNoClose.test(openTags[i])){
+			if (tagMap[openTags[i]].replacement) out += "</" + tagMap[openTags[i]].replacement + ">"
+			else out += "</" + openTags[i] + ">"
+		}
+		
 	}
 	
 	return out
