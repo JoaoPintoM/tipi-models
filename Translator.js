@@ -49,7 +49,7 @@ module.exports = function(mongoose) {
 	}
 	Translator.prototype.loadTranslations = function(str){
 		var translator = this;
-		this.model.find(function(err, translations){
+		this.model.find().sort('key').exec(function(err, translations){
 			for (var t in translations){
 				translator.translations[translations[t].key] = translations[t];
 			}
