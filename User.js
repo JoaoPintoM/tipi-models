@@ -6,7 +6,7 @@ module.exports = function(mongoose) {
 		dateCreated: {type: Date, 'default': Date.now},
 		lastLogin: Date,
 		loginCount: {type: Number, 'default': 0},
-		roles: [String],
+		roles: {type: [String], 'default': ['member']},
 		ads: [String],
 		favorites: [String],
 		blacklist: [String],
