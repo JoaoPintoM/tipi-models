@@ -2,14 +2,14 @@ var zipsByName = require('./zipsbyname')
 var zipsByCode = require('./zipsbycode')
 
 exports.resolve = function(zip, city){
-	city = city.toLowerCase().replace(/[^a-z]/g, '')
+	city = city && city.toLowerCase().replace(/[^a-z]/g, '')
 	if (zip && city){
 		if (zipsByCode[zip]) {
 			// 
 			zipsByCode[zip].forEach(function(rec){
-				if (rec.fr && rec.fr.toLowerCase().replace(/[^a-z]/g, '') == city) return {zip: zip, city: rec}
-				if (rec.nl && rec.nl.toLowerCase().replace(/[^a-z]/g, '') == city) return {zip: zip, city: rec}
-				if (rec.en && rec.en.toLowerCase().replace(/[^a-z]/g, '') == city) return {zip: zip, city: rec}
+				if (rec.fr.toLowerCase().replace(/[^a-z]/g, '') == city) return {zip: zip, city: rec}
+				if (rec.nl.toLowerCase().replace(/[^a-z]/g, '') == city) return {zip: zip, city: rec}
+				if (rec.en.toLowerCase().replace(/[^a-z]/g, '') == city) return {zip: zip, city: rec}
 			})
 			return {zip: zip, city: zipsByCode[zip][0]}
 		}
