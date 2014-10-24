@@ -2,7 +2,7 @@ var zipsByName = require('./zipsbyname')
 var zipsByCode = require('./zipsbycode')
 
 exports.resolve = function(zip, city){
-	city = city.toLowerCase().replace(/[^a-z]/g, '')
+	city = city && city.toLowerCase().replace(/[^a-z]/g, '')
 	if (zip && city){
 		if (zipsByCode[zip]) {
 			// 
