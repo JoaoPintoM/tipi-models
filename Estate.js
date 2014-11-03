@@ -43,7 +43,7 @@ module.exports = function(mongoose, request) {
 			index: '2dsphere',
 			type: {}
 		  },
-		validation_status: {type: Number, min: 0, max: 4, 'default': 0}, // 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid
+		validation_status: {type: Number, min: 0, max: 5, 'default': 0}, // 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold
 		tipi_comment : String
 	})
 	

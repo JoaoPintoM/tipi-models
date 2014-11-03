@@ -11,6 +11,7 @@ module.exports = function(mongoose) {
 		favorites: [String],
 		blacklist: [String],
 		lang: String,
+		token: String,
 		notifications: {
 			frequency: Number,
 			mode: {type: String, 'default': 'rent'},
