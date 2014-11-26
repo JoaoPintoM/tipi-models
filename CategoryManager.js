@@ -134,8 +134,6 @@ module.exports = function(translator){
 				'unbuildable-land': t("Terrain non-bâtissable", 'en')
 			}
 		}
-	
-	
 	}
 	
 	

@@ -13,7 +13,7 @@ module.exports = function(mongoose, request) {
 		city_en: String,
 		address: String,
 		partial_address: {type:Boolean, 'default':false},
-		category: {type: String, 'enum':['house', 'appartment', 'business', 'garage', 'terrain'], index:true},
+		category: {type: String, 'enum':['house', 'appartment', 'business', 'garage', 'terrain', 'land'], index:true},
 		type: String,
 		price: {type: Number, index: true},
 		old_price: Number,
@@ -122,6 +122,16 @@ module.exports = function(mongoose, request) {
 		}
 		
 	})
+
+	// EstateSchema.methods.getTitle = function (callback) {
+	// 	var type = this.type
+	// 	if (!this.nb_rooms || this.category=='terrain') return res.locals.t('{type} à {city}',{type:type, city: this.city});
+	// 	if (this.nb_rooms == 1) return res.locals.t('{type} {nb} chambre à {city}',{type:type, nb:this.nb_rooms, city: this.city});
+	// 	return res.locals.t('{type} {nb} chambres à {city}',{type:type, nb:this.nb_rooms, city: this.city});
+
+	// 	// return this.city_en;
+	// }
+
 	var Estate = mongoose.model('Estate', EstateSchema);
 
 	return Estate
