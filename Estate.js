@@ -111,7 +111,7 @@ module.exports = function(mongoose, request) {
 					if (data.results[0].partial_match) that.partial_address = true
 					that.lat = data.results[0].geometry.location.lat
 					that.lng = data.results[0].geometry.location.lng
-					that.loc = [that.lat, that.lng]
+					that.loc = [that.lng, that.lat]
 				}
 				next()
 			})	
