@@ -1,15 +1,18 @@
 module.exports = function(mongoose) {
 
 	var CitySchema = new mongoose.Schema({
-        zip: String,
+        zip: {type:String, index:true},
         name_fr: String,
         name_nl: String,
         name_en: String,
-        search_string_fr: String,
-        search_string_nl: String,
-        search_string_en: String,
+        search_string_fr: {type:String, index:true},
+        search_string_nl: {type:String, index:true},
+        search_string_en: {type:String, index:true},
         borders: Array,
-        center: Array,
+        center: {
+            index: '2dsphere',
+            type: {}
+        },
         parent_zip: String,
         order_id: Number,
         website_fr: String,
