@@ -2,7 +2,7 @@ var escape_html = function(str){
 	if (str) return str.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
-module.exports = function(mongoose, request) {
+module.exports = function(mongoose, request, translator) {
 
 	var EstateSchema = new mongoose.Schema({
 		mode: {type: String, 'enum':['sale', 'rent'], index:true},
@@ -14,7 +14,7 @@ module.exports = function(mongoose, request) {
 		address: String,
 		partial_address: {type:Boolean, 'default':false},
 		category: {type: String, 'enum':['house', 'appartment', 'business', 'garage', 'terrain', 'land'], index:true},
-		type: String,
+		type: {type: String, index:true},
 		price: {type: Number, index: true},
 		old_price: Number,
 		nb_rooms: {type:Number, 'default':0, index: true},
@@ -40,11 +40,12 @@ module.exports = function(mongoose, request) {
 		lat: Number,
 		lng: Number,
 		loc: {
-			index: '2dsphere',
-			type: {}
-		  },
+            index: '2dsphere',
+            type: {}
+        },
 		validation_status: {type: Number, min: 0, max: 5, 'default': 0}, // 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold
-		tipi_comment : String
+		tipi_comment : String,
+        province: {type: String, index:true}
 	})
 	
 	EstateSchema.pre('validate', function (next) {
@@ -62,7 +63,9 @@ module.exports = function(mongoose, request) {
 		this.address = escape_html(this.address)
 		this.type = escape_html(this.type)
 		this.construction_year = escape_html(this.construction_year)
-		
+		// resolve province
+        this.province = ziputils.getProvinceIdByZip(this.zip)
+
 		next()
 	})
 	
@@ -103,7 +106,7 @@ module.exports = function(mongoose, request) {
 		else if (this.lat && this.lng || this.loc) geoCode = false
 		// else if (this.lat && this.lng || (!this.loc && this.loc.length > 0)) geoCode = false
 		if (this._original && this._original.address != this.address) geoCode = true
-		if(this._original && this._original.zip != this.zip) geocode = true
+		if (this._original && this._original.zip != this.zip) geocode = true
 		
 		if (geoCode){
 			console.log('resolving address:' + this.address)
@@ -126,14 +129,15 @@ module.exports = function(mongoose, request) {
 		
 	})
 
-	// EstateSchema.methods.getTitle = function (callback) {
-	// 	var type = this.type
-	// 	if (!this.nb_rooms || this.category=='terrain') return res.locals.t('{type} à {city}',{type:type, city: this.city});
-	// 	if (this.nb_rooms == 1) return res.locals.t('{type} {nb} chambre à {city}',{type:type, nb:this.nb_rooms, city: this.city});
-	// 	return res.locals.t('{type} {nb} chambres à {city}',{type:type, nb:this.nb_rooms, city: this.city});
+	 EstateSchema.methods.getTitle = function (lang) {
+	 	if (!this.nb_rooms || this.category=='terrain') return translator.translate('{type} à {city}', lang, {type:this.type, city: this.city});
+	 	if (this.nb_rooms == 1) return translator.translate('{type} {nb} chambre à {city}', lang, {type:this.type, nb:this.nb_rooms, city: this.city});
+	 	return translator.translate('{type} {nb} chambres à {city}', lang, {type:this.type, nb:this.nb_rooms, city: this.city});
+	 }
 
-	// 	// return this.city_en;
-	// }
+     EstateSchema.methods.getCity = function (lang) {
+	 	return this['city_' + lang]
+	 }
 
 	var Estate = mongoose.model('Estate', EstateSchema);
 

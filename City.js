@@ -17,7 +17,10 @@ module.exports = function(mongoose) {
         website_en: String,
         wikipedia_fr: String,
         wikipedia_nl: String,
-        wikipedia_en: String
+        wikipedia_en: String,
+        province_fr: String,
+        province_nl: String,
+        province_en: String
 	})
 
 	var City = mongoose.model('City', CitySchema);
