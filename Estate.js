@@ -104,10 +104,12 @@ module.exports = function(mongoose, request, translator) {
 		pics = JSON.parse(pics);
 
 		if(JSON.stringify(this._original.pictures) != JSON.stringify(pics)){
+			console.log('Damn pictures are differents !!!');
 			this.validation_status = 6;
 		}
 
 		if (this._original.address != this.address){
+			console.log('Damn address is different!!!');
 			this.validation_status = 6;
 		}
 
