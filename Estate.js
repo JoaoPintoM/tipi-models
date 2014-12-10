@@ -43,12 +43,13 @@ module.exports = function(mongoose, request) {
 			index: '2dsphere',
 			type: {}
 		  },
-		validation_status: {type: Number, min: 0, max: 5, 'default': 0}, // 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold
+		// 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold, 6 = notready
+		validation_status: {type: Number, min: 0, max: 6, 'default': 0}, 
 		tipi_comment : String
 	})
 	
 	EstateSchema.pre('validate', function (next) {
-		console.log('resolving stuff !!! =================================');
+		// console.log('resolving stuff !!! =================================');
 		var ziputils = require('./ziputils')
 		var resolved = ziputils.resolve(this.zip, this.city)
 		if (resolved.zip) {
@@ -96,9 +97,22 @@ module.exports = function(mongoose, request) {
 		next()
 	})
 	EstateSchema.pre('save', function (next) {
+
+		var pics = JSON.stringify(this.pictures);
+		pics = JSON.parse(pics);
+
+		if(JSON.stringify(this._original.pictures) != JSON.stringify(pics)){
+			this.validation_status = 6;
+		}
+
+		if (this._original.address != this.address){
+			this.validation_status = 6;
+		}
+
 		// geocode the address
 		var that = this
 		var geoCode = true
+
 		if (!this.address) geoCode = false
 		else if (this.lat && this.lng || this.loc) geoCode = false
 		// else if (this.lat && this.lng || (!this.loc && this.loc.length > 0)) geoCode = false
@@ -107,6 +121,7 @@ module.exports = function(mongoose, request) {
 		
 		if (geoCode){
 			console.log('resolving address:' + this.address)
+			console.log('::::======================')
 			request.get("http://maps.googleapis.com/maps/api/geocode/json?address="+this.address+"&components=country:BE|postal_code:"+this.zip+"&sensor=false", function(e, resp, body){
 				var data = JSON.parse(body)
 				console.log(data)
