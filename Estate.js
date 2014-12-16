@@ -28,6 +28,7 @@ module.exports = function(mongoose, request, translator) {
 		agency_id: String,
 		owner_id: String,
 		date_created: {type: Date, 'default': Date.now},
+		date_lastEdit: {type: Date, 'default': Date.now},
 		date_deleted: {type: Date, 'default': null},
 		date_last_import: {type: Date, 'default': null},
 		date_sold: {type: Date, 'default': null},
@@ -43,7 +44,7 @@ module.exports = function(mongoose, request, translator) {
 			index: '2dsphere',
 			type: {}
 		  },
-		validation_status: {type: Number, min: 0, max: 6, 'default': 0}, // 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold
+		validation_status: {type: Number, min: 0, max: 6, 'default': 6}, // 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold
 		tipi_comment : String,
         province: {type: String, index:true}
 	})
@@ -99,6 +100,7 @@ module.exports = function(mongoose, request, translator) {
 		next()
 	})
 	EstateSchema.pre('save', function (next) {
+		this.date_lastEdit = Date.now();
 
 		//check if there is something
 		if(this._original){
