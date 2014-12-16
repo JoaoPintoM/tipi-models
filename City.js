@@ -1,7 +1,7 @@
 module.exports = function(mongoose) {
 
 	var CitySchema = new mongoose.Schema({
-        zip: {type:String, index:true},
+        zip: {type:Number, index:true},
         name_fr: String,
         name_nl: String,
         name_en: String,
