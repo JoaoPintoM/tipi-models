@@ -47,6 +47,8 @@ module.exports = function(mongoose, request, translator) {
 		tipi_comment : String,
         province: {type: String, index:true}
 	})
+
+    EstateSchema.index({zip:1, mode:1, category: 1, price:1, nb_rooms:1, loc:1, sort_value:1, date_created: -1})
 	
 	EstateSchema.pre('validate', function (next) {
 		// console.log('resolving stuff !!! =================================');
