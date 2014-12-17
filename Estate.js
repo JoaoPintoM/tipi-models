@@ -54,8 +54,8 @@ module.exports = function(mongoose, request, translator) {
         province: {type: String, index:true}
 	})
 
-    EstateSchema.index({zip:1, mode:1, category:1, price:1, nb_rooms:1, loc:1, lat:1, sort_value:1, date_created: -1})
-    EstateSchema.index({zip:1, mode:1, category:1, price:1, nb_rooms:1, province:1, sort_value:1, date_created: -1})
+    EstateSchema.index({zip:1, mode:1, category:1, price:1, nb_rooms:1, date_deleted:1, loc:1, lat:1, sort_value:1, date_created: -1})
+    EstateSchema.index({zip:1, mode:1, category:1, price:1, nb_rooms:1, date_deleted:1, province:1, sort_value:1, date_created: -1})
 	
 	EstateSchema.pre('validate', function (next) {
 		// console.log('resolving stuff !!! =================================');
