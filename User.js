@@ -1,4 +1,4 @@
-module.exports = function(mongoose) {
+module.exports = function(mongoose, bcrypt) {
 	
 	var UserSchema = new mongoose.Schema({
 		email: {type: String, index: {unique: true}},
@@ -74,6 +74,17 @@ module.exports = function(mongoose) {
 		var index = this.blacklist.indexOf(id)
 		if (index > -1) this.blacklist.splice(index, 1)
 	}
+
+	//pw security
+
+	UserSchema.methods.generateHash = function (password) {
+	 return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+	};
+
+	UserSchema.methods.isValidPassword = function (password) {
+		return bcrypt.compareSync(password, this.password);
+	};
+
 	var User = mongoose.model('User', UserSchema);
 	
 	return User
