@@ -12,6 +12,7 @@ module.exports = function(mongoose, bcrypt) {
 		blacklist: [String],
 		lang: String,
 		token: {type: String, index: {unique: true}},
+		resetSecret: {type: String},
 		notifications: {
 			frequency: Number,
 			mode: {type: String, 'default': 'rent'},
