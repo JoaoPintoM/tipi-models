@@ -13,8 +13,8 @@ module.exports = function(mongoose, request, translator) {
 		city_en: String,
 		address: String,
 		partial_address: {type:Boolean, 'default':false},
-		category: {type: String, 'enum':['house', 'appartment', 'business', 'garage', 'terrain', 'land'], index:true},
-		type: {type: String, index:true},
+		category: {type: String, 'enum':['house', 'appartment', 'business', 'garage', 'terrain', 'land'], index:true, 'default':'house'},
+		type: {type: String, index:true, 'default':'house'},
 		price: {type: Number, index: true},
 		old_price: Number,
 		nb_rooms: {type:Number, 'default':0, index: true},
@@ -39,6 +39,9 @@ module.exports = function(mongoose, request, translator) {
 		provider: String,
 		provider_ref: String,
 		provider_url: String,
+        provider_url_fr: String,
+        provider_url_nl: String,
+        provider_url_en: String,
 		sort_value: {type: Number, 'default': 999999999, index:true},
 		random_id: {type: Number, 'default': Math.random()},
 		lat: Number,
@@ -112,8 +115,11 @@ module.exports = function(mongoose, request, translator) {
 
 		//check if there is something
 		if(this._original){
-			var pics = JSON.stringify(this.pictures);
-			pics = JSON.parse(pics);
+			if (this.pictures && this.pictures.length) {
+                var pics = JSON.stringify(this.pictures);
+			     pics = JSON.parse(pics);
+            }
+            else var pics = []
 
 			if(JSON.stringify(this._original.pictures) != JSON.stringify(pics)){
 				console.log('Damn pictures are differents !!!');
