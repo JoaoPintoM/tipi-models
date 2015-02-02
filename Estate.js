@@ -125,6 +125,8 @@ module.exports = function(mongoose, request, translator) {
 			}
 
 			if (this._original.address != this.address){
+                console.log(this._original.address)
+                console.log(this.address)
 				console.log('Damn address is different!!!');
 				this.validation_status = 6;
 			}
