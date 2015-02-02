@@ -121,14 +121,14 @@ module.exports = function(mongoose, request, translator) {
 
 			if(JSON.stringify(this._original.pictures) != JSON.stringify(pics)){
 				console.log('Damn pictures are differents !!!');
-				this.validation_status = 6;
+				if (!estate.provider) this.validation_status = 6;
 			}
 
-			if (this._original.address != this.address){
+			if (this._original.address.trim() != this.address.trim()){
                 console.log(this._original.address)
                 console.log(this.address)
 				console.log('Damn address is different!!!');
-				this.validation_status = 6;
+				if (!estate.provider) this.validation_status = 6;
 			}
 		}
 
