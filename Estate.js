@@ -140,7 +140,7 @@ module.exports = function(mongoose, request, translator) {
 		if (!this.address) geoCode = false
 		else if (this.lat && this.lng || this.loc) geoCode = false
 		// else if (this.lat && this.lng || (!this.loc && this.loc.length > 0)) geoCode = false
-		if (this._original && this._original.address != this.address) geoCode = true
+		if (this._original && this._original.address.trim() != this.address.trim()) geoCode = true
 		if (this._original && this._original.zip != this.zip) geocode = true
 		
 		if (geoCode){
