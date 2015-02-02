@@ -27,15 +27,13 @@ module.exports = function(mongoose, request, translator) {
 		pictures: {type:[], 'default':[]},
 		agency_id: String,
 		owner_id: String,
-
 		date_lastEdit: {type: Date, 'default': Date.now},
-
 		date_created: {type: Date, 'default': Date.now, index:true},
-
 		date_deleted: {type: Date, 'default': null},
 		date_last_import: {type: Date, 'default': null},
 		date_sold: {type: Date, 'default': null},
 		date_price_changed: {type: Date, 'default': null},
+        to_update: {type:Boolean, default:false},
 		provider: String,
 		provider_ref: String,
 		provider_url: String,
