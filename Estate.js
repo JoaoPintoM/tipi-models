@@ -147,7 +147,7 @@ module.exports = function(mongoose, request, translator) {
 		if (this._original && this._original.zip != this.zip) geocode = true
 		
 		if (geoCode){
-			// console.log('resolving address:' + this.address)
+			console.log('resolving address:' + this.address)
 			// console.log('::::======================')
 			request.get("http://maps.googleapis.com/maps/api/geocode/json?address="+this.address+"&components=country:BE|postal_code:"+this.zip+"&sensor=false", function(e, resp, body){
 				var data = JSON.parse(body)
@@ -162,7 +162,7 @@ module.exports = function(mongoose, request, translator) {
 			})	
 		}
 		else {
-			// console.log('address already resolved')
+			console.log('address already resolved')
 			next()	
 		}
 		
