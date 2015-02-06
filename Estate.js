@@ -111,7 +111,8 @@ module.exports = function(mongoose, request, translator) {
 		next()
 	})
 	EstateSchema.pre('save', function (next) {
-		this.date_lastEdit = Date.now();
+		console.log('pre save')
+        this.date_lastEdit = Date.now();
 
 		//check if there is something
 		if(this._original){
