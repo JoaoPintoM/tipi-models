@@ -60,6 +60,7 @@ module.exports = function(mongoose, request, translator) {
     EstateSchema.index({_id:1, zip:1, mode:1, category:1, price:1, nb_rooms:1, date_deleted:1, province:1, sort_value:1, date_created: -1})
 	
 	EstateSchema.pre('validate', function (next) {
+        console.log('pre validate')
 		// console.log('resolving stuff !!! =================================');
 		var ziputils = require('./ziputils')
 		var resolved = ziputils.resolve(this.zip, this.city)
