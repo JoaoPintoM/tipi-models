@@ -34,6 +34,7 @@ module.exports = function(mongoose, request, translator) {
 		date_sold: {type: Date, 'default': null},
 		date_price_changed: {type: Date, 'default': null},
         to_update: {type:Boolean, default:false},
+        to_delete: {type:Boolean, default:false},
 		provider: String,
 		provider_ref: String,
 		provider_url: String,
