@@ -60,7 +60,7 @@ module.exports = function(mongoose, request, translator) {
     EstateSchema.index({_id:1, zip:1, mode:1, category:1, price:1, nb_rooms:1, date_deleted:1, province:1, sort_value:1, date_created: -1})
 	
 	EstateSchema.pre('validate', function (next) {
-        console.log('pre validate')
+        //console.log('pre validate')
 		// console.log('resolving stuff !!! =================================');
 		var ziputils = require('./ziputils')
 		var resolved = ziputils.resolve(this.zip, this.city)
@@ -111,7 +111,7 @@ module.exports = function(mongoose, request, translator) {
 		next()
 	})
 	EstateSchema.pre('save', function (next) {
-		console.log('pre save')
+		//console.log('pre save')
         this.date_lastEdit = Date.now();
 
 		//check if there is something
@@ -147,7 +147,7 @@ module.exports = function(mongoose, request, translator) {
 		if (this._original && this._original.zip != this.zip) geocode = true
 		
 		if (geoCode){
-			console.log('resolving address:' + this.address)
+			//console.log('resolving address:' + this.address)
 			// console.log('::::======================')
 			request.get("http://maps.googleapis.com/maps/api/geocode/json?address="+this.address+"&components=country:BE|postal_code:"+this.zip+"&sensor=false", function(e, resp, body){
 				var data = JSON.parse(body)
@@ -162,8 +162,8 @@ module.exports = function(mongoose, request, translator) {
 			})	
 		}
 		else {
-			console.log('address already resolved')
-			next()	
+			//console.log('address already resolved')
+			next()
 		}
 		
 	})
