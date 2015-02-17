@@ -2,6 +2,22 @@ var escape_html = function(str){
 	if (str) return str.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
+// générer un tipi-id au format suivant : LLL-CCC
+// information: (L)ettre / (C)hiffre
+// @n : le nombre de caractères pour chaque élément (n*L-n*C)
+var generateTipiId = function (n) {
+	var n = n || 3
+	var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		, numbers = '1234567890'
+		, a = ''
+		, b = '';
+	for (var i = 0; i < n; i++) {
+		a += chars.charAt(Math.floor(Math.random() * chars.length));
+		b += numbers.charAt(Math.floor(Math.random() * numbers.length));
+	};
+	return a + "-" + b
+}
+
 module.exports = function(mongoose, request, translator) {
 
 	var EstateSchema = new mongoose.Schema({
@@ -43,6 +59,7 @@ module.exports = function(mongoose, request, translator) {
         provider_url_en: String,
 		sort_value: {type: Number, 'default': 999999999, index:true},
 		random_id: {type: Number, 'default': Math.random()},
+		tipi_id: {type: String, index: { unique: true }},
 		lat: Number,
 		lng: Number,
 		loc: {
@@ -58,7 +75,7 @@ module.exports = function(mongoose, request, translator) {
 
     EstateSchema.index({_id:1, zip:1, mode:1, category:1, price:1, nb_rooms:1, date_deleted:1, loc:1, lat:1, sort_value:1, date_created: -1})
     EstateSchema.index({_id:1, zip:1, mode:1, category:1, price:1, nb_rooms:1, date_deleted:1, province:1, sort_value:1, date_created: -1})
-	
+
 	EstateSchema.pre('validate', function (next) {
         //console.log('pre validate')
 		// console.log('resolving stuff !!! =================================');
@@ -80,12 +97,12 @@ module.exports = function(mongoose, request, translator) {
 
 		next()
 	})
-	
+
 	EstateSchema.path('zip').validate(function(val){
 		var ziputils = require('./ziputils')
 		return ziputils.isZip(val)
 	}, 'InvalidZip');
-	
+
 	EstateSchema.post('validate', function (estate) {
 		if (estate.validation_status == 0){
 			if (!estate.zip || !estate.category || !estate.pictures.length){
@@ -108,6 +125,11 @@ module.exports = function(mongoose, request, translator) {
 	})
 	EstateSchema.pre('save', function (next) {
 		if (this.price) this.sort_value = this.price
+		next()
+	})
+	EstateSchema.pre('save', function (next) {
+		// managing tipi_id
+		if ( !this.tipi_id ) this.tipi_id = generateTipiId()
 		next()
 	})
 	EstateSchema.pre('save', function (next) {
@@ -145,7 +167,7 @@ module.exports = function(mongoose, request, translator) {
 		// else if (this.lat && this.lng || (!this.loc && this.loc.length > 0)) geoCode = false
 		if (this._original && this._original.address && this._original.address.trim() != this.address.trim()) geoCode = true
 		if (this._original && this._original.zip != this.zip) geocode = true
-		
+
 		if (geoCode){
 			//console.log('resolving address:' + this.address)
 			// console.log('::::======================')
@@ -159,13 +181,13 @@ module.exports = function(mongoose, request, translator) {
 					that.loc = [that.lng, that.lat]
 				}
 				next()
-			})	
+			})
 		}
 		else {
 			//console.log('address already resolved')
 			next()
 		}
-		
+
 	})
 
 	 EstateSchema.methods.getTitle = function (lang) {
@@ -177,6 +199,15 @@ module.exports = function(mongoose, request, translator) {
      EstateSchema.methods.getCity = function (lang) {
 	 	return this['city_' + lang]
 	 }
+
+	EstateSchema.methods.tipiIdExists = function (tipiId, callback) {
+		// return true if founded
+		this.model('Estate').count(
+			{ tipi_id : tipiId },
+			function (err, count) {
+				(count == 0) ? callback(false) : callback(true);
+			});
+	}
 
 	var Estate = mongoose.model('Estate', EstateSchema);
 
