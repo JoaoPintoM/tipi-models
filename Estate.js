@@ -209,6 +209,10 @@ module.exports = function(mongoose, request, translator) {
 			});
 	}
 
+	EstateSchema.methods.generateTipiId = function (callback) {
+		callback(generateTipiId());
+	}
+
 	var Estate = mongoose.model('Estate', EstateSchema);
 
 	return Estate
