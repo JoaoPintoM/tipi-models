@@ -95,6 +95,7 @@ module.exports = function(mongoose, request, translator) {
 		this.construction_year = escape_html(this.construction_year)
 		// resolve province
         this.province = ziputils.getProvinceIdByZip(this.zip)
+        if (! this.category) this.category = 'house'
 
 		next()
 	})
