@@ -95,6 +95,7 @@ module.exports = function(mongoose, request, translator) {
 		this.construction_year = escape_html(this.construction_year)
 		// resolve province
         this.province = ziputils.getProvinceIdByZip(this.zip)
+        if (! this.category) this.category = 'house'
 
 		next()
 	})
@@ -208,6 +209,10 @@ module.exports = function(mongoose, request, translator) {
 			function (err, count) {
 				(count == 0) ? callback(false) : callback(true);
 			});
+	}
+
+	EstateSchema.methods.generateTipiId = function (callback) {
+		callback(generateTipiId());
 	}
 
 	var Estate = mongoose.model('Estate', EstateSchema);
