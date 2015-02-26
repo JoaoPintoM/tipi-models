@@ -1,5 +1,7 @@
 module.exports = function(mongoose) {
 
+
+
 	var AgencySchema = new mongoose.Schema({
 		name: String,
 		subsidiary_name: String,
@@ -12,7 +14,11 @@ module.exports = function(mongoose) {
 		website: String,
 		logo: String,
 		lat: Number,
-		lng: Number
+		lng: Number,
+		users: [{
+			type: mongoose.Schema.ObjectId,
+			ref: 'User'
+		}]
 	})
 	
 	var Agency = mongoose.model('Agency', AgencySchema);

@@ -8,6 +8,7 @@ module.exports = function(mongoose, bcrypt) {
 		loginCount: {type: Number, 'default': 0},
 		roles: {type: [String], 'default': ['member']},
 		ads: [String],
+		agency_id: String,
 		favorites: [String],
 		blacklist: [String],
 		lang: String,
