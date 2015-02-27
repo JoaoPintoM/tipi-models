@@ -67,9 +67,9 @@ module.exports = function(mongoose, request, translator) {
 			type: {}
 		  },
 
-		validation_status: {type: Number, min: 0, max: 6, 'default': 6, index:true}, 
+		validation_status: {type: Number, min: 0, max: 7, 'default': 7, index:true}, 
 		// 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold
-
+		// 7 ejected when imports
 		tipi_comment : String,
         province: {type: String, index:true}
 	})
