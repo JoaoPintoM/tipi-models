@@ -1,5 +1,5 @@
 module.exports = function(mongoose, bcrypt) {
-	
+
 	var UserSchema = new mongoose.Schema({
 		email: {type: String, index: {unique: true}},
 		password: String,
@@ -11,7 +11,7 @@ module.exports = function(mongoose, bcrypt) {
 		agency_id: String,
 		favorites: [String],
 		blacklist: [String],
-		lang: String,
+		lang: { type: String, 'default': 'fr' },
 		token: {type: String, index: {unique: true}},
 		resetSecret: {type: String},
 		notifications: {
@@ -24,21 +24,21 @@ module.exports = function(mongoose, bcrypt) {
 			min_rooms: {type:Number, 'default':0}
 		}
 	})
-	
+
 
 	UserSchema.path('password').validate(function (pass) {
 	   return (pass.length < 4) ? false : true
 	}, 'PasswordTooShort')
-	
+
 	UserSchema.path('email').validate(function (email) {
 	   return email && email.length
 	}, 'EmptyEmail')
-	
+
 	UserSchema.path('email').validate(function (email) {
 	   var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 	   return emailRegex.test(email)
 	}, 'InvalidEmail')
-	
+
 	UserSchema.methods.isAuthenticated = function () {
 		return (this.email != 'anonymous')
 	}
@@ -88,6 +88,6 @@ module.exports = function(mongoose, bcrypt) {
 	};
 
 	var User = mongoose.model('User', UserSchema);
-	
+
 	return User
 }
