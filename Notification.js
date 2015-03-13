@@ -17,6 +17,15 @@ module.exports = function (mongoose) {
       enum: ['daily', 'weekly'],
       default: 'daily'
     },
+    mode: {
+      type: String,
+      enum: ['rent', 'sale'],
+      default: 'sale'
+    },
+    isActive: {
+      type: Boolean,
+      default: true
+    },
     createdAt: {
       type: Date,
       default: Date.now
