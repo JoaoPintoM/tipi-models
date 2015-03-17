@@ -7,7 +7,7 @@ module.exports = function (mongoose) {
 			type: mongoose.Schema.ObjectId,
 			ref: 'User'
 		},
-    zip: {
+    zips: {
       type: [Number],
       min: 1000,
       max: 9999
@@ -36,8 +36,8 @@ module.exports = function (mongoose) {
     },
 	});
 
-  notificationSchema.path('zip').validate(function (zip) {
-    if (zip.length <= 0) return false;
+  notificationSchema.path('zips').validate(function (zips) {
+    if (zips.length <= 0) return false;
     return true;
   }, 'Zip cannot be empty');
 
