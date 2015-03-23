@@ -26,6 +26,23 @@ module.exports = function (mongoose) {
       type: Boolean,
       default: true
     },
+    priceMin: {
+      type: Number,
+      default: 0
+    },
+    priceMax: {
+      type: Number,
+      default: -1
+    },
+    type: {
+      type: String,
+      enum: [ 'all', 'house', 'appartment', 'house_or_appartment', 'business', 'garage', 'terrain' ],
+      default: 'all'
+    },
+    rooms: {
+      type: Number,
+      default: 0
+    },
     createdAt: {
       type: Date,
       default: Date.now
