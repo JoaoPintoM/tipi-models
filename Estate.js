@@ -45,6 +45,7 @@ module.exports = function(mongoose, request, translator) {
 		owner_id: String,
 		date_lastEdit: {type: Date, 'default': Date.now},
 		date_created: {type: Date, 'default': Date.now, index:true},
+		date_published: {type: Date, 'default': Date.now},
 		date_deleted: {type: Date, 'default': null},
 		date_last_import: {type: Date, 'default': null},
 		date_sold: {type: Date, 'default': null},
