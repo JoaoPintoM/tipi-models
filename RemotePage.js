@@ -21,11 +21,15 @@ module.exports = function(mongoose) {
         },
         to_update: {
             type: Boolean,
-            'default': 1
+            'default': false
         },
         to_download: {
             type: Boolean,
-            'default': 1
+            'default': false
+        },
+        to_delete: {
+            type: Boolean,
+            'default': false
         },
         estate_id: {
             type: mongoose.Schema.Types.ObjectId,
