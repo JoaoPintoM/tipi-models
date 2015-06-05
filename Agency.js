@@ -25,6 +25,7 @@ module.exports = function(mongoose) {
         logo: String,
         lat: Number,
         lng: Number,
+        provider: String,
         users: [{
             type: mongoose.Schema.ObjectId,
             ref: 'User'
