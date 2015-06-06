@@ -2,6 +2,9 @@ var escape_html = function(str) {
     if (str) return str.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
+//googleMAPS APIKEY
+API_KEY = 'AIzaSyCm5WDRR3X90XXfkMHES7bqki77LG2a1Kg';
+
 // générer un tipi-id au format suivant : LLL-CCC
 // information: (L)ettre / (C)hiffre
 // @n : le nombre de caractères pour chaque élément (n*L-n*C)
@@ -280,18 +283,32 @@ module.exports = function(mongoose, request, translator) {
         if (this._original && this._original.zip != this.zip) geocode = true
 
         if (geoCode) {
-            //console.log('resolving address:' + this.address)
-            // console.log('::::======================')
-            request.get("http://maps.googleapis.com/maps/api/geocode/json?address=" + this.address + "&components=country:BE|postal_code:" + this.zip + "&sensor=false", function(e, resp, body) {
-                var data = JSON.parse(body)
-                console.log(data)
-                if (data.results[0]) {
-                    if (data.results[0].partial_match) that.partial_address = true
-                    that.lat = data.results[0].geometry.location.lat
-                    that.lng = data.results[0].geometry.location.lng
-                    that.loc = [that.lng, that.lat]
+            console.log(this.loc);
+            console.log('resolving address:' + this.address)
+            console.log('::::======================')
+            var _address = this.address;
+            var _zip = this.zip;
+
+            request.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + this.address + "&components=country:BE|postal_code:" + this.zip + "&sensor=false&key=" + API_KEY, function(e, resp, body) {
+                if (e) {
+                    console.log('error on model');
+                    console.log(e);
+                    console.log(body);
+                    console.log(resp);
+                } else {
+
+                    var data = JSON.parse(body)
+
+                    console.log(_address + "&components=country:BE|postal_code:" + _zip + ' geocoded.')
+                    console.log(data.results)
+                    if (data.results[0]) {
+                        if (data.results[0].partial_match) that.partial_address = true
+                        that.lat = data.results[0].geometry.location.lat
+                        that.lng = data.results[0].geometry.location.lng
+                        that.loc = [that.lng, that.lat]
+                    }
+                    next()
                 }
-                next()
             })
         } else {
             //console.log('address already resolved')
