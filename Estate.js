@@ -68,11 +68,19 @@ module.exports = function(mongoose, request, translator) {
 			type: {}
 		  },
 
-		validation_status: {type: Number, min: 0, max: 7, 'default': 7, index:true}, 
+		validation_status: {type: Number, min: 0, max: 7, 'default': 7, index:true},
 		// 0 = not validated yet, 1 = validated, 2 = missing info, 3 = to check, 4 = invalid, 5 = on hold
 		// 7 ejected when imports
 		tipi_comment : String,
-        province: {type: String, index:true}
+        province: {type: String, index:true},
+
+    // highlightInfos will contain all information about the current highlight
+
+    highlight: { type: Boolean, default: false },
+    highlightBegin: { type: Date, default: Date.now },
+    highlightEnd: { type: Date, default: Date.now },
+    highlightInfos : { type: mongoose.Schema.Types.Mixed }
+
 	})
 
     EstateSchema.index({_id:1, zip:1, mode:1, category:1, price:1, nb_rooms:1, date_deleted:1, loc:1, lat:1, sort_value:1, date_created: -1})
@@ -215,6 +223,16 @@ module.exports = function(mongoose, request, translator) {
 	EstateSchema.methods.generateTipiId = function (callback) {
 		callback(generateTipiId());
 	}
+
+  EstateSchema.methods.isHighlighted = function() {
+    return this.highlight;
+  }
+
+  EstateSchema.methods.setHighlight = function(state) {
+    if (typeof state === 'boolean') {
+      this.highlight = state;
+    }
+  }
 
 	var Estate = mongoose.model('Estate', EstateSchema);
 
