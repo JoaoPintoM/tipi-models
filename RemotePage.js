@@ -34,7 +34,8 @@ module.exports = function(mongoose) {
         estate_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Estate'
-        }
+        },
+        office: String
     })
 
     var RemotePage = mongoose.model('RemotePage', RemotePageSchema)
