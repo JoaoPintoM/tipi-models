@@ -179,7 +179,10 @@ module.exports = function(mongoose, request, translator) {
       default: Date.now
     },
     highlightInfos: {
-      type: mongoose.Schema.Types.Mixed
+      type: {}
+    },
+    highlightIcons: {
+      type: [String]
     }
   })
 
@@ -378,6 +381,36 @@ module.exports = function(mongoose, request, translator) {
     if (typeof state === 'boolean') {
       this.highlight = state;
     }
+  }
+
+  EstateSchema.methods.setInfo = function(selectedType, selectedOptions) {
+    if (selectedOptions) {
+      this.highlightIcons = selectedOptions.split(', ');
+    }
+
+    var name = selectedType;
+
+    switch (selectedType) {
+      case "Mettre en avant - 2 €":
+        var type = "simpleHighlight";
+        var klass = "simple-highlight"
+      break;
+      case "Mettre en avant sur la page principale - 5 €":
+        var type = "landingHighlight";
+        var klass = "landing-highlight"
+      break;
+      case "Ajouter une vignette - 1 € / vignette":
+        var type = "icons";
+        var klass = "icon-highlight"
+      break;
+      default: break;
+    }
+
+    this.highlightInfos = {
+      name: name,
+      type: type,
+      klass: klass
+    };
   }
 
   var Estate = mongoose.model('Estate', EstateSchema);
