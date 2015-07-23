@@ -389,7 +389,11 @@ module.exports = function(mongoose, request, translator) {
 
     this.count(customSearch, function(e, count) {
       if (e) return cb(e);
-      var rand = Math.floor(Math.random() * (count - 1));
+      var rand = Math.floor(Math.random() * (count - customLimit));
+      // skip isn't working with negative numbers
+      if (rand < 0) {
+        rand = 0;
+      }
       this.find(customSearch).skip(rand).limit(customLimit).exec(cb);
     }.bind(this));
   };
