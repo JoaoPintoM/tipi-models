@@ -383,6 +383,17 @@ module.exports = function(mongoose, request, translator) {
     }
   }
 
+  EstateSchema.statics.random = function(args, cb) {
+    var customSearch = args.criteria || {};
+    var customLimit = args.limit || 1;
+
+    this.count(customSearch, function(e, count) {
+      if (e) return cb(e);
+      var rand = Math.floor(Math.random() * (count - 1));
+      this.find(customSearch).skip(rand).limit(customLimit).exec(cb);
+    }.bind(this));
+  };
+
   EstateSchema.methods.setInfo = function(selectedType, selectedOptions) {
     if (selectedOptions) {
       this.highlightIcons = selectedOptions.split(', ');
