@@ -422,6 +422,10 @@ module.exports = function(mongoose, request, translator) {
         var type = "simpleHighlightIcons";
         var klass = "simple-icon-highlight"
       break;
+      case "Mettre en avant sur la page principale + vignettes : 5€ + 1€ / vignette":
+        var type = "landingHighlight";
+        var klass = "icons-landing-highlight"
+      break;
       default: break;
     }
 
