@@ -422,7 +422,7 @@ module.exports = function(mongoose, request, translator) {
         var type = "landingHighlight";
         var klass = "landing-highlight"
       break;
-      case "Ajouter une vignette : 1€ / vignette":
+      case "Ajouter des vignettes : 1€ / vignette":
         var type = "icons";
         var klass = "icon-highlight"
       break;
@@ -430,7 +430,7 @@ module.exports = function(mongoose, request, translator) {
         var type = "simpleHighlightIcons";
         var klass = "simple-icon-highlight"
       break;
-      case "Mettre en avant sur la page principale + vignettes : 5€ + 1€ / vignette":
+      case "Mettre en avant + page principale + vignettes : 5€ + 1€ / vignette":
         var type = "landingHighlight";
         var klass = "icons-landing-highlight"
       break;
