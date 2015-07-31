@@ -398,6 +398,14 @@ module.exports = function(mongoose, request, translator) {
     }.bind(this));
   };
 
+  EstateSchema.methods.unhighlight = function(validate) {
+    if (validate) {
+      this.highlight = false;
+      this.highlightIcons = [];
+      this.highlightInfos = {};
+    }
+  }
+
   EstateSchema.methods.setInfo = function(selectedType, selectedOptions) {
     if (selectedOptions) {
       this.highlightIcons = selectedOptions.split(', ');
