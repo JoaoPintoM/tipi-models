@@ -1,7 +1,11 @@
 module.exports = function(mongoose) {
 
     var AdvertSchema = new mongoose.Schema({
-
+        name: {
+          type: String,
+          required: 'Please fill in a name',
+          trim: true
+        },
         user: {
             type: mongoose.Schema.ObjectId,
             ref: 'User'
@@ -31,6 +35,10 @@ module.exports = function(mongoose) {
         rooms: {
             type: Number,
             default: 0
+        },
+        content:{
+          type: String,
+          trim: true
         },
         category: {
             type: String,
