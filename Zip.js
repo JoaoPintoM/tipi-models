@@ -1,5 +1,4 @@
-module.exports = function(mongoose) {
-
+module.exports = function (mongoose) {
 
 
     var ZipSchema = new mongoose.Schema({
@@ -12,7 +11,7 @@ module.exports = function(mongoose) {
         }
     })
 
-    var Zip = mongoose.model('Agency', ZipSchema);
+    var Zip = mongoose.model('Zip', ZipSchema);
 
-    return Zip
+    return Zip;
 }
