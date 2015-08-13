@@ -1,13 +1,13 @@
-module.exports = function(mongoose) {
+module.exports = function (mongoose) {
 
-	var CitySchema = new mongoose.Schema({
-        zip: {type:Number, index:true},
+    var CitySchema = new mongoose.Schema({
+        zip: {type: Number, index: true},
         name_fr: String,
         name_nl: String,
         name_en: String,
-        search_string_fr: {type:String, index:true},
-        search_string_nl: {type:String, index:true},
-        search_string_en: {type:String, index:true},
+        search_string_fr: {type: String, index: true},
+        search_string_nl: {type: String, index: true},
+        search_string_en: {type: String, index: true},
         borders: Array,
         center: {
             index: '2dsphere',
@@ -24,9 +24,9 @@ module.exports = function(mongoose) {
         province_fr: String,
         province_nl: String,
         province_en: String
-	})
+    })
 
-	var City = mongoose.model('City', CitySchema);
+    var City = mongoose.model('City', CitySchema);
 
-	return City
+    return City
 }
