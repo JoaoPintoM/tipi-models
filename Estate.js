@@ -405,6 +405,17 @@ module.exports = function(mongoose, request, translator) {
       this.highlightInfos = {};
     }
   }
+  EstateSchema.methods.highlightadmin = function(validate) {
+    if (validate) {
+      this.highlight = true;
+      this.highlightIcons = ['Éco-construction', 'Nouveau Prix', 'Nouvelle Construction'];
+      this.highlightInfos = {
+        name: "Mettre en avant + page principale + vignettes : 5€ + 1€ / vignette",
+        type: "landingHighlight",
+        klass: "icons-landing-highlight"
+      };
+    }
+  }
 
   EstateSchema.methods.setInfo = function(selectedType, selectedOptions) {
     if (selectedOptions) {

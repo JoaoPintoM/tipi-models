@@ -43,7 +43,7 @@ module.exports = function(translator){
 				restaurant: t("Restaurant", 'fr'),
 				cafe: t("Café", 'fr'),
 				warehouse: t("Entrepôt", 'fr'),
-				'industrial-building': t("Bâtiment industriel", 'fr'),
+				'industral-building': t("Bâtiment industriel", 'fr'),
 				'indoor-parking': t("Emplacement de parking intérieur", 'fr'),
 				'outdoor-parking': t("Emplacement de parking extérieur", 'fr'),
 				'lock-up-garage': t("Box fermé", 'fr'),
@@ -56,11 +56,11 @@ module.exports = function(translator){
         'collocation': t("Collocation", 'fr'),
         'architect_house': t("Maison d'architecte", 'fr'),
         'workshop': t("Atelier", 'fr'),
-        'pop_up_store': t("PopUp Store", 'fr'),
+        'popup_store': t("PopUp Store", 'fr'),
         'startup': t("Startup", 'fr'),
-        'vegeatable_garden': t("Potager", 'fr'),
+        'vegetable_garden': t("Potager", 'fr'),
         'investment_property': t("Maison de rapport", 'fr'),
-        'business': t("Fond de commerce", 'fr'),
+        'business': t("Fond de commerce", 'fr')
 
 			},
 			nl: {
@@ -91,7 +91,7 @@ module.exports = function(translator){
 				restaurant: t("Restaurant", 'nl'),
 				cafe: t("Café", 'nl'),
 				warehouse: t("Entrepôt", 'nl'),
-				'industrial-building': t("Bâtiment industriel", 'nl'),
+				'industral-building': t("Bâtiment industriel", 'nl'),
 				'indoor-parking': t("Emplacement de parking intérieur", 'nl'),
 				'outdoor-parking': t("Emplacement de parking extérieur", 'nl'),
 				'lock-up-garage': t("Box fermé", 'nl'),
@@ -104,11 +104,11 @@ module.exports = function(translator){
         'collocation': t("Collocation", 'nl'),
         'architect_house': t("Maison d'architecte", 'nl'),
         'workshop': t("Atelier", 'nl'),
-        'pop_up_store': t("PopUp Store", 'nl'),
+        'popup_store': t("PopUp Store", 'nl'),
         'startup': t("Startup", 'nl'),
-        'vegeatable_garden': t("Potager", 'nl'),
+        'vegetable_garden': t("Potager", 'nl'),
         'investment_property': t("Maison de rapport", 'nl'),
-        'business': t("Fond de commerce", 'nl'),
+        'business': t("Fond de commerce", 'nl')
 			},
 			en: {
 				appartment: t("Appartement", 'en'),
@@ -138,7 +138,7 @@ module.exports = function(translator){
 				restaurant: t("Restaurant", 'en'),
 				cafe: t("Café", 'en'),
 				warehouse: t("Entrepôt", 'en'),
-				'industrial-building': t("Bâtiment industriel", 'en'),
+				'industral-building': t("Bâtiment industriel", 'en'),
 				'indoor-parking': t("Emplacement de parking intérieur", 'en'),
 				'outdoor-parking': t("Emplacement de parking extérieur", 'en'),
 				'lock-up-garage': t("Box fermé", 'en'),
@@ -151,11 +151,11 @@ module.exports = function(translator){
         'collocation': t("Collocation", 'en'),
         'architect_house': t("Maison d'architecte", 'en'),
         'workshop': t("Atelier", 'en'),
-        'pop_up_store': t("PopUp Store", 'en'),
+        'popup_store': t("PopUp Store", 'en'),
         'startup': t("Startup", 'en'),
-        'vegeatable_garden': t("Potager", 'en'),
+        'vegetable_garden': t("Potager", 'en'),
         'investment_property': t("Maison de rapport", 'en'),
-        'business': t("Fond de commerce", 'en'),
+        'business': t("Fond de commerce", 'en')
 			}
 		}
 	}
