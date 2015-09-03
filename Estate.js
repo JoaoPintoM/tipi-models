@@ -77,6 +77,7 @@ module.exports = function(mongoose, request, translator) {
     },
     nb_faces: Number,
     tags: [String],
+    filters: [String],
     pictures: {
       type: [],
       'default': []
