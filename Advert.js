@@ -44,6 +44,22 @@ module.exports = function(mongoose) {
             type: String,
             enum: ['house', 'appartment', 'house_or_appartment', 'business', 'garage', 'terrain'],
             default: null
+        },
+        min_bath:{
+          type:Number,
+          default: 0
+        },
+        min_surface:{
+          type: Number,
+          default:0
+        },
+        min_landsurface:{
+          type: Number,
+          default: 0
+        },
+        min_faces:{
+          type: Number,
+          default: 0
         }
     })
 
