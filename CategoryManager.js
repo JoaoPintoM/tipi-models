@@ -1,19 +1,19 @@
 module.exports = function(translator){
-	
+
 	var t = function(str, lang, vars){
 		return translator.translate(str, lang, vars);
 	}
-	
+
 	var CategoryManager = {
-	
+
 		categories: {
-			appartment: ['appartment', 'flat', 'studio', 'loft', 'duplex', 'triplex', 'penthouse', 'ground-floor', 'kot'],
-			house: ['house', 'bel-etage', 'mansion', 'villa', 'cottage', 'farmhouse', 'castle', 'bungalow', 'chalet', 'building'],
-			business: ['office', 'office-building', 'commercial-premise', 'commercial-ground-floor', 'hotel', 'restaurant', 'cafe', 'warehouse', 'industral-building'],
+			appartment: ['appartment', 'flat', 'studio', 'loft', 'duplex', 'triplex', 'penthouse', 'ground-floor', 'kot', 'collocation'],
+			house: ['house', 'bel-etage', 'mansion', 'villa', 'cottage', 'farmhouse', 'castle', 'bungalow', 'chalet', 'building', 'collocation', 'architect_house', 'investment_property'],
+			business: ['office', 'office-building', 'commercial-premise', 'commercial-ground-floor', 'hotel', 'restaurant', 'cafe', 'warehouse', 'industral-building', 'workshop', 'popup_store', 'startup', 'business'],
 			garage: ['indoor-parking', 'outdoor-parking', 'lock-up-garage'],
-			terrain: ['land', 'building-land', 'field', 'meadow', 'orchard', 'unbuildable-land']
+			terrain: ['land', 'building-land', 'field', 'meadow', 'orchard', 'unbuildable-land', 'vegetable_garden']
 		},
-	
+
 		types: {
 			fr: {
 				appartment: t("Appartement", 'fr'),
@@ -43,7 +43,7 @@ module.exports = function(translator){
 				restaurant: t("Restaurant", 'fr'),
 				cafe: t("Café", 'fr'),
 				warehouse: t("Entrepôt", 'fr'),
-				'industrial-building': t("Bâtiment industriel", 'fr'),
+				'industral-building': t("Bâtiment industriel", 'fr'),
 				'indoor-parking': t("Emplacement de parking intérieur", 'fr'),
 				'outdoor-parking': t("Emplacement de parking extérieur", 'fr'),
 				'lock-up-garage': t("Box fermé", 'fr'),
@@ -52,8 +52,16 @@ module.exports = function(translator){
 				'field': t("Champ", 'fr'),
 				meadow: t("Prairie", 'fr'),
 				orchard: t("Verger", 'fr'),
-				'unbuildable-land': t("Terrain non-bâtissable", 'fr')
-				
+				'unbuildable-land': t("Terrain non-bâtissable", 'fr'),
+        'collocation': t("Collocation", 'fr'),
+        'architect_house': t("Maison d'architecte", 'fr'),
+        'workshop': t("Atelier", 'fr'),
+        'popup_store': t("PopUp Store", 'fr'),
+        'startup': t("Startup", 'fr'),
+        'vegetable_garden': t("Potager", 'fr'),
+        'investment_property': t("Maison de rapport", 'fr'),
+        'business': t("Fond de commerce", 'fr')
+
 			},
 			nl: {
 				appartment: t("Appartement", 'nl'),
@@ -83,7 +91,7 @@ module.exports = function(translator){
 				restaurant: t("Restaurant", 'nl'),
 				cafe: t("Café", 'nl'),
 				warehouse: t("Entrepôt", 'nl'),
-				'industrial-building': t("Bâtiment industriel", 'nl'),
+				'industral-building': t("Bâtiment industriel", 'nl'),
 				'indoor-parking': t("Emplacement de parking intérieur", 'nl'),
 				'outdoor-parking': t("Emplacement de parking extérieur", 'nl'),
 				'lock-up-garage': t("Box fermé", 'nl'),
@@ -92,7 +100,15 @@ module.exports = function(translator){
 				'field': t("Champ", 'nl'),
 				meadow: t("Prairie", 'nl'),
 				orchard: t("Verger", 'nl'),
-				'unbuildable-land': t("Terrain non-bâtissable", 'nl')
+				'unbuildable-land': t("Terrain non-bâtissable", 'nl'),
+        'collocation': t("Collocation", 'nl'),
+        'architect_house': t("Maison d'architecte", 'nl'),
+        'workshop': t("Atelier", 'nl'),
+        'popup_store': t("PopUp Store", 'nl'),
+        'startup': t("Startup", 'nl'),
+        'vegetable_garden': t("Potager", 'nl'),
+        'investment_property': t("Maison de rapport", 'nl'),
+        'business': t("Fond de commerce", 'nl')
 			},
 			en: {
 				appartment: t("Appartement", 'en'),
@@ -122,7 +138,7 @@ module.exports = function(translator){
 				restaurant: t("Restaurant", 'en'),
 				cafe: t("Café", 'en'),
 				warehouse: t("Entrepôt", 'en'),
-				'industrial-building': t("Bâtiment industriel", 'en'),
+				'industral-building': t("Bâtiment industriel", 'en'),
 				'indoor-parking': t("Emplacement de parking intérieur", 'en'),
 				'outdoor-parking': t("Emplacement de parking extérieur", 'en'),
 				'lock-up-garage': t("Box fermé", 'en'),
@@ -131,15 +147,20 @@ module.exports = function(translator){
 				'field': t("Champ", 'en'),
 				meadow: t("Prairie", 'en'),
 				orchard: t("Verger", 'en'),
-				'unbuildable-land': t("Terrain non-bâtissable", 'en')
+				'unbuildable-land': t("Terrain non-bâtissable", 'en'),
+        'collocation': t("Collocation", 'en'),
+        'architect_house': t("Maison d'architecte", 'en'),
+        'workshop': t("Atelier", 'en'),
+        'popup_store': t("PopUp Store", 'en'),
+        'startup': t("Startup", 'en'),
+        'vegetable_garden': t("Potager", 'en'),
+        'investment_property': t("Maison de rapport", 'en'),
+        'business': t("Fond de commerce", 'en')
 			}
 		}
 	}
-	
-	
+
+
 	return CategoryManager
 }
-
-
-
 

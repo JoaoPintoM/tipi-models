@@ -77,6 +77,7 @@ module.exports = function(mongoose, request, translator) {
     },
     nb_faces: Number,
     tags: [String],
+    filters: [String],
     pictures: {
       type: [],
       'default': []
@@ -403,6 +404,17 @@ module.exports = function(mongoose, request, translator) {
       this.highlight = false;
       this.highlightIcons = [];
       this.highlightInfos = {};
+    }
+  }
+  EstateSchema.methods.highlightadmin = function(validate) {
+    if (validate) {
+      this.highlight = true;
+      this.highlightIcons = ['Éco-construction', 'Nouveau Prix', 'Nouvelle Construction'];
+      this.highlightInfos = {
+        name: "Mettre en avant + page principale + vignettes : 5€ + 1€ / vignette",
+        type: "landingHighlight",
+        klass: "icons-landing-highlight"
+      };
     }
   }
 
