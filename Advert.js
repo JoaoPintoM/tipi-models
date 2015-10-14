@@ -45,6 +45,12 @@ module.exports = function(mongoose) {
 			enum: ['house', 'appartment', 'house_or_appartment', 'business', 'garage', 'terrain'],
 			default: null
 		},
+		type: {
+			type: String,
+			'default': 'house'
+		},
+		tags: [String],
+
 		min_bath: {
 			type: Number,
 			default: 0
