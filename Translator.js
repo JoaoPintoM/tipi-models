@@ -25,6 +25,7 @@ module.exports = function(mongoose) {
 	util.inherits(Translator, events.EventEmitter);
 
 	Translator.prototype.translate = function(str, lang, vars) {
+
 		var key = this.getKey(str),
 			re;
 		if (this.translations[key]) {
@@ -53,6 +54,7 @@ module.exports = function(mongoose) {
 		return str.replace(/[^a-zA-Z0-9_-]/gi, '-');
 	}
 	Translator.prototype.loadTranslations = function(str) {
+
 		var translator = this;
 		this.model.find({})
 			.sort({
