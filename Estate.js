@@ -285,14 +285,13 @@ module.exports = function(mongoose, request, translator) {
         if (!this.provider) this.validation_status = 6;
       }
 
-      if(!this.address)
-      	return false
-
-      if (this._original.address && this._original.address.trim() != this.address.trim()) {
-        console.log(this._original.address)
-        console.log(this.address)
-        console.log('Damn address is different!!!');
+      if(this.address){
+      	if (this._original.address && this._original.address.trim() != this.address.trim()) {
+	        console.log(this._original.address)
+	        console.log(this.address)
+	        console.log('Damn address is different!!!');
         if (!this.provider) this.validation_status = 6;
+      	}
       }
     }
 
