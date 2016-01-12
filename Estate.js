@@ -428,23 +428,23 @@ module.exports = function(mongoose, request, translator) {
     var name = selectedType;
 
     switch (selectedType) {
-      case "Mettre en avant : 2€":
+      case "simpleHighlight":
         var type = "simpleHighlight";
         var klass = "simple-highlight"
       break;
-      case "Mettre en avant sur la page principale : 5€":
+      case "landingHighlight":
         var type = "landingHighlight";
         var klass = "landing-highlight"
       break;
-      case "Ajouter des vignettes : 1€ / vignette":
+      case "icons":
         var type = "icons";
         var klass = "icon-highlight"
       break;
-      case "Mettre en avant + vignettes : 2€ + 1€ / vignette":
+      case "simpleHighlightIcons":
         var type = "simpleHighlightIcons";
         var klass = "simple-icon-highlight"
       break;
-      case "Mettre en avant + page principale + vignettes : 5€ + 1€ / vignette":
+      case "landingHighlight":
         var type = "landingHighlight";
         var klass = "icons-landing-highlight"
       break;
