@@ -251,7 +251,7 @@ module.exports = function(mongoose, request, translator) {
     }
   })
   EstateSchema.post('init', function() {
-    this._original = this.toObject();
+    // this._original = this.toObject();
   });
   EstateSchema.pre('save', function(next) {
     if (this._original && this.price && this._original.price != this.price) {
