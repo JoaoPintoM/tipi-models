@@ -237,6 +237,7 @@ module.exports = function(mongoose, request, translator) {
   })
 
   EstateSchema.path('zip').validate(function(val) {
+  	console.log('valZip:'  + val);
     var ziputils = require('./ziputils')
     return ziputils.isZip(val)
   }, 'InvalidZip');
