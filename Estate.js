@@ -56,6 +56,12 @@ module.exports = function(mongoose, request, translator) {
       index: true,
       'default': 'house'
     },
+
+    new: {
+      type: Boolean,
+      'default': false
+    },
+
     price: {
       type: Number,
       index: true
@@ -153,7 +159,7 @@ module.exports = function(mongoose, request, translator) {
     validation_status: {
       type: Number,
       min: 0,
-      max: 7,
+      max: 20,
       'default': 7,
       index: true
     },
