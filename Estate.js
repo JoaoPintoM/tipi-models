@@ -59,7 +59,7 @@ module.exports = function(mongoose, request, translator) {
 
     new: {
       type: Boolean,
-      'default': false
+      'default': true
     },
 
     price: {
