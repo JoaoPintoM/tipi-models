@@ -23,6 +23,8 @@ module.exports = function(mongoose) {
 		var TranslationSchema = new mongoose.Schema(schemaConfig);
 		this.model = mongoose.model('Translation', TranslationSchema);
 		events.EventEmitter.call(this);
+
+		console.log('comprend po');
 		this.loadTranslations();
 	}
 	util.inherits(Translator, events.EventEmitter);
@@ -58,6 +60,8 @@ module.exports = function(mongoose) {
 	}
 	Translator.prototype.loadTranslations = function(str) {
 
+		console.log('PIGE PO.')
+		console.log(str);
 		var translator = this;
 		this.model.find({})
 			.sort({
