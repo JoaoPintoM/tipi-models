@@ -4,6 +4,9 @@ var events = require("events");
 module.exports = function(mongoose) {
 
 	var Translator = function(defaultLanguage, availableLanguages) {
+
+		console.log(' mais putain tu fais chier sale trenslation de merde')
+
 		this.defaultLanguage = defaultLanguage;
 		this.availableLanguages = availableLanguages;
 		this.translations = {}
