@@ -67,6 +67,10 @@ module.exports = function(mongoose) {
 			.sort({
 			_id: 'asc'
 			}).exec(function(err, translations) {
+
+				console.log(err);
+				console.log(translations);
+
 				for (var t in translations) {
 					translator.translations[translations[t].key] = translations[t];
 				}
