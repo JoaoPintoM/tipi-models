@@ -5,7 +5,6 @@ module.exports = function(mongoose) {
 
 	var Translator = function(defaultLanguage, availableLanguages) {
 
-		console.log(' mais putain tu fais chier sale trenslation de merde')
 
 		this.defaultLanguage = defaultLanguage;
 		this.availableLanguages = availableLanguages;
@@ -24,7 +23,6 @@ module.exports = function(mongoose) {
 		this.model = mongoose.model('Translation', TranslationSchema);
 		events.EventEmitter.call(this);
 
-		console.log('comprend po');
 		this.loadTranslations();
 	}
 	util.inherits(Translator, events.EventEmitter);
@@ -60,8 +58,6 @@ module.exports = function(mongoose) {
 	}
 	Translator.prototype.loadTranslations = function(str) {
 
-		console.log('PIGE PO.')
-		console.log(str);
 		var translator = this;
 		this.model.find({})
 			.sort({
@@ -69,7 +65,6 @@ module.exports = function(mongoose) {
 			}).exec(function(err, translations) {
 
 				console.log(err);
-				console.log(translations);
 
 				for (var t in translations) {
 					translator.translations[translations[t].key] = translations[t];

@@ -51,6 +51,11 @@ module.exports = function(mongoose) {
 		},
 		tags: [String],
 
+		highlight: {
+			type: Boolean,
+			default: false
+		},
+
 		min_bath: {
 			type: Number,
 			default: 0
