@@ -56,6 +56,16 @@ module.exports = function(mongoose) {
 			default: false
 		},
 
+		bigHighlight: {
+			type: Boolean,
+			default: false
+		},
+
+		icon: {
+			type: Boolean,
+			default: false
+		},
+
 		min_bath: {
 			type: Number,
 			default: 0
